@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muse Made — Design Directions</title>
+<style>
+:root{--ink:#171310;--cream:#F4EFE2;--soft:#6B6155;--rule:#DCD2C0;--ember:#A2470F;--teal:#3B6560}
+*{box-sizing:border-box}
+body{margin:0;background:#FBF8F1;color:var(--ink);font:400 16px/1.7 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:0 0 14px;letter-spacing:-.02em}
+.sub{color:var(--soft);max-width:60ch;margin:0 0 8px}
+header{padding:70px 0 46px;border-bottom:1px solid var(--rule)}
+h2{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);margin:56px 0 20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+a.card{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);background:#fff;padding:26px 26px 28px;transition:.18s}
+a.card:hover{border-color:var(--ink);transform:translateY(-2px)}
+a.card .t{font-size:20px;font-weight:600;margin:0 0 8px}
+a.card .d{color:var(--soft);font-size:14.5px;margin:0}
+.swatches{display:flex;gap:0;margin:14px 0 0}
+.swatches i{display:block;width:30px;height:16px}
+.tag{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);border:1px solid var(--rule);padding:4px 9px;margin-bottom:14px}
+ul{padding-left:20px;color:var(--soft)}
+li{margin-bottom:8px}
+li b{color:var(--ink);font-weight:600}
+footer{margin:70px 0 60px;padding-top:22px;border-top:1px solid var(--rule);color:var(--soft);font-size:13.5px}
+code{background:#F1EBDD;padding:2px 6px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Muse Made Coaching — design directions</h1>
+    <p class="sub">Six clickable mockups in three directions. Each direction has a dark landing page and a light shop + workbook page that go together. Everything is self-contained — fonts and images are embedded, so these work offline and on a phone.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2>Main site — dark</h2>
+  <div class="grid">
+    <a class="card" href="main-dark-01-ember.html">
+      <span class="tag">Direction A</span>
+      <p class="t">Ember</p>
+      <p class="d">Warm charcoal, poster-scale condensed type, the workbook's retro sun as the signature graphic. Loud, confident, a little bit gig-poster.</p>
+      <div class="swatches"><i style="background:#171310"></i><i style="background:#F4EFE2"></i><i style="background:#E96B2B"></i><i style="background:#F5CC27"></i><i style="background:#C72E2E"></i></div>
+    </a>
+    <a class="card" href="main-dark-02-cut.html">
+      <span class="tag">Direction B</span>
+      <p class="t">Cut</p>
+      <p class="d">Deep teal-black, split-screen hero, hairline rules and a numbered index. Sharper and more editorial — closer to a studio than a poster.</p>
+      <div class="swatches"><i style="background:#0E1615"></i><i style="background:#F4EFE2"></i><i style="background:#8FAFAE"></i><i style="background:#F6A28A"></i><i style="background:#F5CC27"></i></div>
+    </a>
+  </div>
+
+  <div class="grid" style="margin-top:20px">
+    <a class="card" href="main-dark-03-gilt.html">
+      <span class="tag">Direction C</span>
+      <p class="t">Gilt</p>
+      <p class="d">Her current site, done properly. Same Cinzel and Cormorant Garamond, same warm black and gold — centered, contact-forward, with the contrast raised and the tracking tightened so the small text is actually readable.</p>
+      <div class="swatches"><i style="background:#1A1410"></i><i style="background:#F5F0E8"></i><i style="background:#D4B87A"></i><i style="background:#B89A5C"></i><i style="background:#2A2520"></i></div>
+    </a>
+    <div class="card" style="background:#F8F4EC;border-style:dashed">
+      <span class="tag">The real question</span>
+      <p class="t">Two brands, one business</p>
+      <p class="d">The live site is classical serif and gold. The workbook is retro condensed sans and primary color. Directions A and B pull the site toward the workbook; C pulls the workbook toward the site. That choice is the actual decision on the table.</p>
+    </div>
+  </div>
+
+  <h2>Shop + product page — light</h2>
+  <div class="grid">
+    <a class="card" href="product-light-01-ember.html">
+      <span class="tag">Light A — pairs with Ember</span>
+      <p class="t">Shop &amp; workbook page</p>
+      <p class="d">Cream ground, same condensed display type and sun motif, product cards in a grid. Click "View Workbook" for the product detail page.</p>
+      <div class="swatches"><i style="background:#F4EFE2"></i><i style="background:#171310"></i><i style="background:#A2470F"></i><i style="background:#E96B2B"></i><i style="background:#8FAFAE"></i></div>
+    </a>
+    <a class="card" href="product-light-02-cut.html">
+      <span class="tag">Light B — pairs with Cut</span>
+      <p class="t">Shop &amp; workbook page</p>
+      <p class="d">Paper white with hairline rules, one large featured product and a row of upcoming recordings. Detail page runs a spec list beside a scrolling stack of spreads.</p>
+      <div class="swatches"><i style="background:#FBF8F1"></i><i style="background:#14201F"></i><i style="background:#3B6560"></i><i style="background:#8FAFAE"></i><i style="background:#F6A28A"></i></div>
+    </a>
+  </div>
+
+  <div class="grid" style="margin-top:20px">
+    <a class="card" href="product-light-03-gilt.html">
+      <span class="tag">Light C — pairs with Gilt</span>
+      <p class="t">Shop &amp; workbook page</p>
+      <p class="d">Her cream, her serifs, her gold — laid out like a fine-press catalog, with the workbook's own color blocks doing the work the photography would. The lighter product feel she asked for, without leaving her existing brand.</p>
+      <div class="swatches"><i style="background:#F5F0E8"></i><i style="background:#2A2520"></i><i style="background:#7E6329"></i><i style="background:#8FAFAE"></i><i style="background:#F6A28A"></i></div>
+    </a>
+    <div class="card" style="background:#F8F4EC;border-style:dashed">
+      <span class="tag">How to use these</span>
+      <p class="t">Mix and match</p>
+      <p class="d">The pairings are suggestions, not packages. A dark landing from one direction and a light shop from another can work if the type system is shared — worth trying once she reacts to the six.</p>
+    </div>
+  </div>
+
+  <h2>What's real and what's placeholder</h2>
+  <ul>
+    <li><b>Landing pages:</b> every word is taken verbatim from the current live site — the tagline, "Welcome to your most satisfied self," the inquiry form and its dropdown options, the confirmation message, the phone and email. Nothing is invented.</li>
+    <li><b>Shop and product pages:</b> copy and prices are placeholders. The structure is real; the words are there to be replaced.</li>
+    <li><b>Workbook images</b> are actual spreads from Modern Mantras.</li>
+    <li>The forms and Add to Cart buttons are mockups — the inquiry form does show its "Message Received" state if you submit it.</li>
+  </ul>
+
+  <h2>Type &amp; color</h2>
+  <ul>
+    <li><b>Ember:</b> Anton for display, Poppins for body. Palette pulled from the workbook — cream <code>#F4EFE2</code>, ink <code>#171310</code>, orange <code>#E96B2B</code>, yellow <code>#F5CC27</code>, red <code>#C72E2E</code>.</li>
+    <li><b>Cut:</b> Oswald for display, Inter for body. Sage <code>#8FAFAE</code>, deep teal <code>#3B6560</code>, salmon <code>#F6A28A</code> on the same cream and ink.</li>
+    <li><b>Gilt:</b> Cinzel and Cormorant Garamond — pulled directly off the live site, along with warm black <code>#1A1410</code>, cream <code>#F5F0E8</code> and gold <code>#D4B87A</code> / <code>#B89A5C</code>. On the light page the gold drops to <code>#7E6329</code> for anything carrying text.</li>
+    <li>Every text/background pair on all four pages meets WCAG AA contrast. On the light pages the orange is darkened to <code>#A2470F</code> anywhere it carries text, because full-strength orange on cream does not pass.</li>
+  </ul>
+
+  <footer>
+    Keep all seven files in the same folder so the links work. Fonts and images are embedded — no internet needed.
+  </footer>
+</div>
+</body>
+</html>
