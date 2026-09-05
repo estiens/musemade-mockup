@@ -17,7 +17,8 @@ exploration mockups are archived in `data/deprecated/`.
 | `data/` | Not shipped. Source imagery and archived design directions. |
 
 All three root pages are self-contained: fonts and images are embedded as base64, so they
-open offline, from `file://`, or over email with nothing to fetch.
+open offline, from `file://`, or over email with nothing to fetch. Neither client page needs
+JavaScript to render — the imagery is written straight into `src`, not applied by script.
 
 ## Building
 
@@ -134,6 +135,12 @@ Exact stacks and weights are in `styleguide.html`.
   is the single most likely source of visual breakage in the port.
 - Inline SVG (the arch and the key) goes into **Code Blocks**. Keep the `viewBox`; do not
   hard-code pixel dimensions.
+- **Carry the focus styles over.** Squarespace supplies its own and it will not match. The
+  ring rule, the skip link and the nav tap-target trick are all specified with copyable values
+  in `styleguide.html` under *Focus & targets*. One ordering gotcha: the focus rule must be
+  declared **last**, because the form fields set `outline:none` on `:focus` to keep their
+  underline treatment — a focus rule placed earlier loses the specificity tie and the ring
+  silently never renders.
 - SVG `id` attributes on gradients and filters are **global once several blocks are on one
   page**. If the arch appears twice, its `id`s will collide and one instance will render
   wrong. The templates already prefix them (`pArchF`, `cArchF` etc.) — preserve that, and
@@ -141,8 +148,11 @@ Exact stacks and weights are in `styleguide.html`.
 
 ## 3. Images
 
-- **Drop the base64 data URIs and the small `IMG` script.** Upload the `.webp` files from
-  `src/assets/` to Squarespace's CDN through the normal image blocks or the asset manager.
+- **Drop the base64 data URIs.** Upload the `.webp` files from `src/assets/` to Squarespace's
+  CDN through the normal image blocks or the asset manager.
+- Keep the `width` and `height` attributes on each `<img>` — they reserve the aspect ratio and
+  stop the page from jumping as images load. They only work alongside `img{height:auto}`;
+  without it the pixel height wins and the image stretches.
 - Keep the existing `alt` text verbatim — it's written, not auto-generated.
 - Squarespace serves responsive derivatives; don't hand-roll `srcset`.
 
@@ -228,6 +238,47 @@ The landing page form is styling only; JS just swaps in a "Message Received" pan
 - **Page count.** The product copy says "52 mantras · twelve themes" because that is what the
   PDF shows. The printed page count is not asserted anywhere — confirm it before launch.
 - **Shipping and tax figures.** `$5.00` and `$1.84` are illustrative. Confirm real numbers.
+
+## Design review — open recommendations
+
+These came out of an external design review. They are **not applied**, because each one
+either rewrites client copy or changes a deliberate design decision — both the client's call,
+not the porter's. Listed strongest first.
+
+- **The hero lede duplicates the inquiry section verbatim.** "Begin the journey. Share a
+  little about yourself and I'll be in touch." is the hero lede *and* the inquiry section's
+  heading + subhead, word for word. Both are real copy lifted from the live site, so the fix
+  is a decision about which slot keeps the line — and what the other one says instead. Now
+  that the hero's primary button points at the workbook, a forward-facing lede that names the
+  book would serve better.
+- **Drop the price ledger, keep the delivered price.** Leading with "$25.00 / $31.84
+  delivered" is right for a warm audience — no checkout surprises. But itemizing it a second
+  time at `$1.84` precision invites a visible mismatch the moment Squarespace computes real
+  tax against a real address. Suggested: delete the ledger rows, keep the two-line price, and
+  move the target math into the Squarespace spec box as a sentence. If the ledger goes, add
+  "in the US" to the delivered line — it currently carries the only shipping-region
+  disclosure.
+- **The landing `h1` is a sentence set as a label.** "Welcome to your most satisfied self" is
+  34 characters of Cinzel caps at .19em tracking — the hardest thing on the site to read, and
+  the warmest line on it. Setting it in Cormorant Garamond, sentence case, would fix that. It
+  is also the brand's signature line, so this is a client decision, not a code one. The
+  underlying rule worth adopting either way: **Cinzel for labels, Cormorant for sentences.**
+- **Copy repeats across slots on the product page.** "Fifty-two … twelve themes" appears four
+  times (`.pmeta`, `.blurb`, the `What's inside` list, the mosaic caption) and "print edition"
+  twice. Each slot should carry information the others don't.
+
+Two further suggestions were **considered and declined**:
+
+- *Reordering the workbook section above About.* The argument was that the money section
+  shouldn't sit behind a `Copy pending` box. But the landing page alternates grounds —
+  hero, `bg-2` services band, `bg` about, `bg-2` workbook, `bg` inquiry — and moving the
+  workbook up puts two `bg-2` bands and then two `bg` sections adjacent, collapsing that
+  rhythm. Swapping the backgrounds to compensate would move the visual emphasis *off* the
+  product, which is backwards. With the hero's primary CTA now pointing at the workbook, and
+  a workbook link in the nav, no visitor has to scroll past About to buy.
+- *Unifying the button hover targets.* On dark, gold fills to cream; on paper, ink fills to
+  gold. Different targets, but the same gesture — each moves toward its ground's accent.
+  Consistent in intent, and correct per-ground.
 
 ## Publishing (the interim static site)
 

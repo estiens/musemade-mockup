@@ -3,9 +3,14 @@
 
 Each template carries tokens the build replaces:
     /*FONTS*/    the @font-face block (Cinzel + Cormorant Garamond, base64 woff2)
-    /*IMG*/      a `const IMG = {...}` line of base64 data URIs
     /*TOKENS*/   a `const TOKENS = {...}` line of the palettes, read out of the
                  :root blocks of the real page templates (styleguide.tpl only)
+
+Images are handled separately: every `<img data-img="key">` gets its base64 data
+URI written straight into a `src` attribute. They used to be applied by script
+from a lookup object, which meant no script, no imagery -- on the page whose job
+is selling the book. Each image is used exactly once, so the object bought
+nothing anyway.
 
 The styleguide reads its swatches from TOKENS rather than hard-coding them, so a
 color can never be right on the site and stale on the page that documents it.
@@ -49,11 +54,16 @@ def palette(page):
 def build(page, images):
     template = (ROOT / "src" / f"{page}.tpl").read_text()
     fonts = (ASSETS / "fonts.css").read_text().strip()
-    uris = {key: data_uri(file) for key, file in images.items()}
 
-    html = (template
-            .replace("/*FONTS*/", fonts)
-            .replace("/*IMG*/", "const IMG=" + json.dumps(uris, separators=(",", ":")) + ";"))
+    html = template.replace("/*FONTS*/", fonts)
+
+    for key, file in images.items():
+        marker = f'data-img="{key}"'
+        assert html.count(marker) == 1, f"{page}: {marker} appears {html.count(marker)}x, want 1"
+        html = html.replace(marker, f'src="{data_uri(file)}"')
+
+    unresolved = re.findall(r'data-img="([^"]+)"', html)
+    assert not unresolved, f"{page}: no asset mapped for {', '.join(unresolved)}"
 
     if "/*TOKENS*/" in html:
         tokens = {theme: {k: v.strip() for k, v in palette(src).items()}
@@ -61,7 +71,7 @@ def build(page, images):
         html = html.replace("/*TOKENS*/",
                             "const TOKENS=" + json.dumps(tokens, separators=(",", ":")) + ";")
 
-    left = [t for t in ("/*FONTS*/", "/*IMG*/", "/*TOKENS*/") if t in html]
+    left = [t for t in ("/*FONTS*/", "/*TOKENS*/") if t in html]
     assert not left, f"{page}: token left unreplaced: {', '.join(left)}"
 
     out = ROOT / f"{page}.html"

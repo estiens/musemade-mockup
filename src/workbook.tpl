@@ -53,8 +53,8 @@ img{max-width:100%;height:auto;display:block}
 .skip:focus{transform:translate(-50%,0)}
 
 .notice{background:var(--ink);color:var(--paper);text-align:center;padding:11px 20px;
-  font-family:'Cinzel',Georgia,serif;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase}
-@media(max-width:520px){.notice{font-size:9px;letter-spacing:.2em}}
+  font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.26em;text-transform:uppercase}
+@media(max-width:520px){.notice{font-size:11px;letter-spacing:.16em}}
 
 header{border-bottom:1px solid var(--rule)}
 .nav{display:flex;align-items:center;justify-content:center;gap:38px;padding:26px 0;
@@ -83,7 +83,7 @@ h2{font-family:'Cinzel',Georgia,serif;font-weight:400;text-transform:uppercase;
 .plate{border:1px solid var(--rule);background:#fff;padding:14px}
 .plate img{width:100%}
 .buy{padding-top:6px}
-.pmeta{font-family:'Cinzel',Georgia,serif;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+.pmeta{font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--ink-soft);margin:20px 0 0}
 .pprice{font-family:'Cinzel',Georgia,serif;font-size:30px;letter-spacing:.08em;color:var(--gold);margin:20px 0 0}
 .pprice span{font-family:'Cormorant Garamond',Garamond,serif;font-size:18px;letter-spacing:.03em;
@@ -151,6 +151,9 @@ footer{border-top:1px solid var(--rule);background:var(--paper-2);padding:56px 0
 .finfo{font-size:18px;line-height:2.2;letter-spacing:.05em}
 .finfo a{display:inline-block;padding:6px 2px;color:var(--gold);text-decoration:none;border-bottom:1px solid transparent}
 .finfo a:hover{border-color:var(--gold-line)}
+/* the email address is a single unbreakable 31-character token; at 320px it
+   needs ~290px and has 245px. Shrink the type rather than let it overhang. */
+@media(max-width:400px){.finfo{font-size:16px;letter-spacing:.01em}}
 
 /* marks the spots Squarespace takes over */
 .sqs{border:1px dashed var(--gold-line);background:rgba(184,154,92,.06);padding:20px 22px;margin:22px 0 0;
@@ -366,9 +369,5 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
   </div>
 </footer>
 
-<script>
-/*IMG*/
-document.querySelectorAll('[data-img]').forEach(function(el){el.src=IMG[el.dataset.img]});
-</script>
 </body>
 </html>

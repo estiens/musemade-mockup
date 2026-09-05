@@ -157,7 +157,7 @@ h2{font-family:'Cinzel',Georgia,serif;font-weight:400;text-transform:uppercase;f
 form{display:grid;gap:30px;text-align:left;max-width:600px;margin:0 auto}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:30px}
 @media(max-width:600px){.row{grid-template-columns:1fr}}
-label{display:block;font-family:'Cinzel',Georgia,serif;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
+label{display:block;font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
   color:var(--gold);margin-bottom:10px}
 input,select,textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--rule);
   color:var(--cream);font-family:'Cormorant Garamond',Garamond,serif;font-size:19px;font-weight:300;letter-spacing:.02em;
@@ -184,6 +184,9 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
 .finfo a{display:inline-block;padding:6px 2px;color:var(--gold);text-decoration:none;
   border-bottom:1px solid transparent;transition:.2s}
 .finfo a:hover{border-color:var(--gold)}
+/* the email address is a single unbreakable 31-character token; at 320px it
+   needs ~290px and has 245px. Shrink the type rather than let it overhang. */
+@media(max-width:400px){.finfo{font-size:16px;letter-spacing:.01em}}
 
 .sqs{border:1px dashed var(--rule);background:rgba(212,184,122,.04);padding:20px 22px;
   margin:34px auto 0;max-width:600px;text-align:left;font-size:15px;line-height:1.7;
@@ -314,8 +317,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     <h1>Welcome to your most satisfied self</h1>
     <p class="lede">Begin the journey. Share a little about yourself and I&rsquo;ll be in touch.</p>
     <div class="cta">
-      <a class="btn" href="#inquiry">Send Inquiry</a>
-      <a class="btn btn-ghost" href="workbook.html">The Workbook</a>
+      <a class="btn" href="workbook.html">The Workbook</a>
+      <a class="btn btn-ghost" href="#inquiry">Send Inquiry</a>
     </div>
   </div>
 </section>
@@ -436,9 +439,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </footer>
 
 <script>
-/*IMG*/
-document.querySelectorAll('[data-img]').forEach(function(el){el.src=IMG[el.dataset.img]});
-
 /* TODO: the inquiry form is front-end only. Point it at Formspree / Netlify Forms
    / an email endpoint before launch. */
 document.getElementById('inq').addEventListener('submit',function(e){

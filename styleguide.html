@@ -39,7 +39,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,mono
 
 .toc{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0}
 .toc a{text-decoration:none;color:var(--doc-ink);background:var(--doc-chip);
-  border:1px solid var(--doc-rule);border-radius:999px;padding:6px 14px;font-size:13px;transition:.15s}
+  border:1px solid var(--doc-rule);border-radius:999px;padding:10px 16px;font-size:13px;transition:.15s}
 .toc a:hover,.toc a:focus-visible{background:var(--doc-ink);color:#fff;border-color:var(--doc-ink)}
 
 h2.sec{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--doc-soft);
@@ -68,9 +68,14 @@ h3.sub{font-size:17px;margin:34px 0 4px;letter-spacing:-.01em}
 .sw .nm{font-weight:600;font-size:13.5px;margin:0 0 2px}
 .sw .role{color:var(--doc-soft);font-size:12.5px;margin:0 0 9px;line-height:1.45}
 .sw .var{display:block;color:var(--doc-soft);font-size:11.5px;margin:7px 0 0}
+/* rgba() values are long enough to overhang a 232px card and clip the copy
+   affordance; let them wrap inside the chip instead of shrinking the type */
+.sw .val{max-width:100%}
+.sw .copy{min-width:0;white-space:normal;word-break:break-word;text-align:left}
 
 /* ---------- contrast table ---------- */
-.ctab{width:100%;border-collapse:collapse;margin:16px 0 0;font-size:13.5px}
+.tablewrap{overflow-x:auto;margin:16px 0 0;-webkit-overflow-scrolling:touch}
+.ctab{width:100%;min-width:560px;border-collapse:collapse;font-size:13.5px}
 .ctab th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--doc-soft);
   border-bottom:1px solid var(--doc-rule);padding:0 12px 9px 0;font-weight:600}
 .ctab td{border-bottom:1px solid var(--doc-rule);padding:10px 12px 10px 0;vertical-align:middle}
@@ -132,7 +137,7 @@ h3.sub{font-size:17px;margin:34px 0 4px;letter-spacing:-.01em}
 .sg-d .btn:hover{background:#F5F0E8;border-color:#F5F0E8}
 .sg-d .btn-ghost{background:transparent;color:#D4B87A;border-color:rgba(212,184,122,.26)}
 .sg-d .btn-ghost:hover{background:transparent;color:#F5F0E8;border-color:#D4B87A}
-.sg-d label{display:block;font-family:'Cinzel',Georgia,serif;font-size:10.5px;letter-spacing:.28em;
+.sg-d label{display:block;font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.24em;
   text-transform:uppercase;color:#D4B87A;margin-bottom:10px}
 .sg-d input,.sg-d select,.sg-d textarea{width:100%;background:transparent;border:0;
   border-bottom:1px solid rgba(212,184,122,.26);color:#F5F0E8;
@@ -162,8 +167,9 @@ h3.sub{font-size:17px;margin:34px 0 4px;letter-spacing:-.01em}
   font-size:clamp(26px,4vw,40px);line-height:1.3;letter-spacing:.13em;margin:0}
 .sg-l h2{font-family:'Cinzel',Georgia,serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(20px,2.6vw,26px);letter-spacing:.18em;margin:0}
-.sg-l h3{font-family:'Cinzel',Georgia,serif;font-weight:400;font-size:11px;letter-spacing:.26em;
-  text-transform:uppercase;color:#7E6329;margin:0;padding-bottom:12px;border-bottom:1px solid #DED5C6}
+.sg-l .colhead{font-family:'Cinzel',Georgia,serif;font-weight:400;font-size:11px;letter-spacing:.26em;
+  text-transform:uppercase;text-align:left;color:#7E6329;margin:0;padding-bottom:12px;
+  border-bottom:1px solid #DED5C6}
 .sg-l .kicker{font-family:'Cinzel',Georgia,serif;font-size:11px;letter-spacing:.3em;
   text-transform:uppercase;color:#7E6329;margin:0}
 .sg-l .nav{display:flex;gap:38px;font-family:'Cinzel',Georgia,serif;font-size:13px;
@@ -172,8 +178,8 @@ h3.sub{font-size:17px;margin:34px 0 4px;letter-spacing:-.01em}
   padding-bottom:2px;transition:.2s}
 .sg-l .nav a:hover,.sg-l .nav a.on{color:#2A2520;border-color:#B89A5C}
 .sg-l .notice{background:#2A2520;color:#F5F0E8;text-align:center;padding:11px 20px;
-  font-family:'Cinzel',Georgia,serif;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase}
-.sg-l .pmeta{font-family:'Cinzel',Georgia,serif;font-size:10.5px;letter-spacing:.24em;
+  font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.26em;text-transform:uppercase}
+.sg-l .pmeta{font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.2em;
   text-transform:uppercase;color:#5E5548;margin:0}
 .sg-l .pprice{font-family:'Cinzel',Georgia,serif;font-size:30px;letter-spacing:.08em;color:#7E6329;margin:0}
 .sg-l .pprice span{font-family:'Cormorant Garamond',Garamond,serif;font-size:18px;letter-spacing:.03em;
@@ -212,6 +218,16 @@ h3.sub{font-size:17px;margin:34px 0 4px;letter-spacing:-.01em}
 footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 70px;
   color:var(--doc-soft);font-size:13.5px}
 
+/* the specimens must actually demonstrate the focus rule they document,
+   and like the real templates this has to come last to win the tie */
+.sg-d a:focus-visible,.sg-d button:focus-visible,.sg-d input:focus-visible,
+.sg-d select:focus-visible,.sg-d textarea:focus-visible{outline:2px solid #D4B87A;outline-offset:3px}
+.sg-d .btn:focus-visible{outline-offset:4px}
+.sg-l a:focus-visible,.sg-l button:focus-visible{outline:2px solid #7E6329;outline-offset:3px}
+.sg-l .btn:focus-visible{outline-offset:4px}
+.sg-d button.btn,.sg-l button.btn{line-height:1.72}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{.toc,.copy::after{display:none}}
 </style>
 </head>
@@ -233,6 +249,7 @@ footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 7
       <a href="#forms">Forms</a>
       <a href="#commerce">Price &amp; commerce</a>
       <a href="#notes">Spec boxes</a>
+      <a href="#a11y">Focus &amp; targets</a>
       <a href="#marks">The marks</a>
     </nav>
   </div>
@@ -265,10 +282,10 @@ footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 7
    <b>AA</b> needs 4.5:1 for normal text and 3:1 for large text (18.66px+ bold, or 24px+).
    Everything shipping currently passes for its size. If you change a color during the
    Squarespace port, re-check it here.</p>
-<table class="ctab" id="ctab">
+<div class="tablewrap"><table class="ctab" id="ctab">
   <thead><tr><th>Foreground</th><th>On</th><th>Ratio</th><th>Normal</th><th>Large</th><th>Where</th></tr></thead>
   <tbody></tbody>
-</table>
+</table></div>
 
 <!-- ==================== TYPOGRAPHY ==================== -->
 <h2 class="sec" id="type">Typography</h2>
@@ -301,9 +318,9 @@ footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 7
   <div class="stage light sg-l specstack">
     <div><h1>Modern Mantras<br>Workbook</h1><p class="caption">h1 — Cinzel 400, clamp(26px,4vw,40px), tracking .13em</p></div>
     <div><h2>How a spread works</h2><p class="caption">h2 — Cinzel 400, clamp(20px,2.6vw,26px), tracking .18em, centred</p></div>
-    <div><h3 style="max-width:420px">What&rsquo;s inside</h3><p class="caption">h3 — Cinzel 400, 11px, tracking .26em, #7E6329, rule beneath</p></div>
+    <div><h2 class="colhead" style="max-width:420px">What&rsquo;s inside</h2><p class="caption">.col h2 — Cinzel 400, 11px, tracking .26em, #7E6329, rule beneath.<br>An h2, not an h3: it follows the page h1 directly, so an h3 would skip a level.</p></div>
     <div><p class="kicker">The Workbook</p><p class="caption">.kicker — Cinzel 11px, tracking .3em, #7E6329</p></div>
-    <div><p class="pmeta">Print edition &middot; 52 mantras &middot; Twelve themes</p><p class="caption">.pmeta — Cinzel 10.5px, tracking .24em, #5E5548</p></div>
+    <div><p class="pmeta">Print edition &middot; 52 mantras &middot; Twelve themes</p><p class="caption">.pmeta — Cinzel 12px, tracking .2em, #5E5548</p></div>
     <div><p class="blurb" style="max-width:52ch">Body copy sets in Cormorant Garamond at 19px, weight 400 on paper, line-height 1.72. The weight goes up one step from the dark theme because light grounds eat stroke weight.</p><p class="caption">body — Cormorant 19px/1.72, weight 400, tracking .015em</p></div>
   </div>
 </div>
@@ -346,8 +363,8 @@ footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 7
   <div class="bar">Dark ground</div>
   <div class="stage dark sg-d">
     <div class="specrow">
-      <a class="btn" href="#buttons">Send Inquiry</a>
-      <a class="btn btn-ghost" href="#buttons">The Workbook</a>
+      <a class="btn" href="#buttons">The Workbook</a>
+      <a class="btn btn-ghost" href="#buttons">Send Inquiry</a>
     </div>
     <p class="caption">.btn — solid #D4B87A on #1A1410, 16px/34px padding, hover fills cream<br>
        .btn-ghost — transparent, 1px rgba(212,184,122,.26) border, hover border brightens</p>
@@ -400,7 +417,7 @@ footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 7
       <div><label for="sg-m">Tell me more</label><textarea id="sg-m" rows="3"></textarea></div>
       <div><a class="btn" href="#forms">Send Inquiry</a></div>
     </div>
-    <p class="caption">label — Cinzel 10.5px, tracking .28em, #D4B87A<br>
+    <p class="caption">label — Cinzel 12px, tracking .24em, #D4B87A<br>
        input — transparent, border-bottom 1px rgba(212,184,122,.26), Cormorant 19px, focus border #D4B87A<br>
        select — native arrow removed, replaced by two gold gradient triangles</p>
   </div>
@@ -482,6 +499,77 @@ footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 7
     <p class="caption">1px dashed #B89A5C on rgba(184,154,92,.06) · body 15px #6E6558 · label Cinzel 9.5px #7E6329</p>
   </div>
 </div>
+
+<!-- ==================== A11Y ==================== -->
+<h2 class="sec" id="a11y">Focus &amp; targets</h2>
+<p class="note">Squarespace supplies its own focus styling, and it will not match. These are
+   the rules the site uses — reproduce them in Custom CSS so keyboard users get the same
+   treatment across ported blocks.</p>
+
+<h3 class="sub">Focus ring</h3>
+<p class="note">A 2px solid ring in the theme's accent, offset 3px (4px on buttons, which
+   already carry a border). <b>Declare it last in the stylesheet.</b> The form fields set
+   <code>outline:none</code> on <code>:focus</code> to keep the underline treatment; a focus
+   rule placed earlier loses the specificity tie and the ring silently never appears.</p>
+<div class="specrow" style="margin:14px 0 0">
+  <span class="val"><b>rule</b><button class="copy">outline:2px solid var(--gold);outline-offset:3px</button></span>
+</div>
+
+<div class="panel">
+  <div class="bar">Tab through these</div>
+  <div class="stage dark sg-d">
+    <div class="specrow">
+      <a class="btn" href="#a11y">The Workbook</a>
+      <a class="btn btn-ghost" href="#a11y">Send Inquiry</a>
+      <span style="min-width:180px"><label for="sg-f">Focus me</label><input id="sg-f" type="text"></span>
+    </div>
+    <p class="caption">Ring #D4B87A on dark, #7E6329 on paper. Applied to a, button, input, select, textarea.</p>
+  </div>
+</div>
+
+<h3 class="sub">Skip link</h3>
+<p class="note">First thing a keyboard lands on; sits off-screen until focused, then drops into
+   the top of the page. Squarespace has its own — check whether it needs restyling rather than
+   adding a second one.</p>
+<div class="panel">
+  <div class="bar">Focused state</div>
+  <div class="stage dark" style="padding:22px 32px">
+    <a href="#a11y" style="display:inline-block;background:#D4B87A;color:#1A1410;text-decoration:none;
+       font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+       padding:14px 24px">Skip to content</a>
+    <p class="caption" style="color:#8C8377">Dark page: gold on ink. Light page: ink on paper.</p>
+  </div>
+</div>
+
+<h3 class="sub">Tap targets</h3>
+<p class="note">Nav links are 13px type — about 19px tall, well under the 44px minimum. Rather
+   than padding them (which would push the light theme's current-page underline off the text),
+   an invisible pseudo-element expands the hit area with zero layout shift:</p>
+<div class="specrow" style="margin:14px 0 0">
+  <span class="val"><b>rule</b><button class="copy">.nav a::after{content:"";position:absolute;left:0;right:0;top:-13px;bottom:-13px}</button></span>
+</div>
+<p class="note" style="margin-top:14px">The nav link needs <code>position:relative</code> for
+   this. Footer links use ordinary padding instead — there is no underline to protect there.</p>
+
+<h3 class="sub">Minimum type sizes</h3>
+<p class="note">Cinzel caps stay legible small, but there is a floor. Nothing user-facing sits
+   below <b>11px</b>, and nothing outside a decorative label below <b>12px</b>. The only 9.5px
+   type left is the label on the dashed spec boxes, which are deleted before launch.</p>
+<div class="tablewrap"><table class="ctab">
+  <thead><tr><th>Element</th><th>Desktop</th><th>Mobile</th><th>Tracking</th></tr></thead>
+  <tbody>
+    <tr><td>Nav</td><td>13px</td><td>11px</td><td>.26em / .18em</td></tr>
+    <tr><td>Announcement bar</td><td>12px</td><td>11px</td><td>.26em / .16em</td></tr>
+    <tr><td>Form labels</td><td>12px</td><td>12px</td><td>.24em</td></tr>
+    <tr><td>Product meta</td><td>12px</td><td>12px</td><td>.2em</td></tr>
+    <tr><td>Kickers, column heads, services row</td><td>11px</td><td>11px</td><td>.26–.3em</td></tr>
+    <tr><td>Buttons</td><td>11.5–12px</td><td>11.5–12px</td><td>.3em</td></tr>
+  </tbody>
+</table></div>
+<p class="note" style="margin-top:14px">One gotcha worth carrying over: a
+   <code>&lt;button class="btn"&gt;</code> defaults to <code>line-height:normal</code> and
+   renders 4–5px shorter than an <code>&lt;a class="btn"&gt;</code> beside it. Both templates
+   set <code>button.btn{line-height:1.72}</code> to match them.</p>
 
 <!-- ==================== MARKS ==================== -->
 <h2 class="sec" id="marks">The marks</h2>
@@ -565,7 +653,7 @@ footer.doc{border-top:1px solid var(--doc-rule);margin-top:80px;padding:30px 0 7
 </div>
 
 <script>
-const IMG={};
+
 const TOKENS={"dark":{"bg":"#1A1410","bg-2":"#221B16","deep":"#0C0906","cream":"#F5F0E8","cream-soft":"#CFC6BA","gold":"#D4B87A","gold-dim":"#B89A5C","rule":"rgba(212,184,122,.26)","rule-soft":"rgba(212,184,122,.14)","muted":"#9C907F","maxw":"760px"},"light":{"paper":"#F5F0E8","paper-2":"#FBF8F2","ink":"#2A2520","ink-soft":"#5E5548","gold":"#7E6329","gold-line":"#B89A5C","rule":"#DED5C6","rule-soft":"#E8E1D4","muted":"#6E6558","deep":"#1A1410","cream":"#F5F0E8","maxw":"1120px"}};
 
 /* ---------- WCAG relative luminance ---------- */
