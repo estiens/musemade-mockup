@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__pal__consensus",
+      "mcp__pal__chat",
+      "mcp__pal__listmodels",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_console_messages",
+      "mcp__ma__library_search_tracks",
+      "mcp__ma__debug_tail_log",
+      "mcp__claude_ai_Google_Drive__search_files",
+      "Bash(pdfinfo *)"
+    ]
+  }
+}
