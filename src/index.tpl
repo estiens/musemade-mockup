@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muse Made Coaching — Intimacy &amp; Life Satisfaction</title>
 <meta name="description" content="Erica Jones — intimacy and life satisfaction coaching and hypnotherapy. Welcome to your most satisfied self.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#1A1410">
+<!-- Link-sharing card. No og:image: every image on this site is a base64 data URI,
+     and Open Graph needs an absolute http(s) URL. Add og:image + og:url in Squarespace,
+     which serves the imagery from a real URL. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Muse Made Coaching">
+<meta property="og:title" content="Muse Made Coaching — Intimacy &amp; Life Satisfaction">
+<meta property="og:description" content="Erica Jones — intimacy and life satisfaction coaching and hypnotherapy. Welcome to your most satisfied self.">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMUExNDEwIi8+PHBhdGggZD0iTTE0IDU2VjI4YTE4IDE4IDAgMCAxIDM2IDB2Mjh6IiBmaWxsPSIjRDRCODdBIi8+PHBhdGggZD0iTTMyIDIwYTggOCAwIDAgMC00IDE0LjlWNDZhNCA0IDAgMCAwIDggMFYzNC45QTggOCAwIDAgMCAzMiAyMHoiIGZpbGw9IiMxQTE0MTAiLz48L3N2Zz4=">
 /*FONTS*/
 <style>
@@ -18,6 +28,7 @@
   --gold-dim:#B89A5C;
   --rule:rgba(212,184,122,.26);
   --rule-soft:rgba(212,184,122,.14);
+  --muted:#9C907F;        /* AA-safe muted text on the dark ground */
   --maxw:760px;
 }
 *{box-sizing:border-box}
@@ -30,8 +41,18 @@ body{
 }
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
 a{color:inherit}
-img{max-width:100%;display:block}
+/* height:auto is required: the width/height attributes on each <img> are
+   presentational hints that reserve the aspect ratio, and without this the
+   pixel height wins and the image stretches */
+img{max-width:100%;height:auto;display:block}
 .cin{font-family:'Cinzel',Georgia,serif;text-transform:uppercase}
+
+/* skip link — first thing a keyboard lands on */
+.skip{position:absolute;left:50%;top:0;transform:translate(-50%,-140%);z-index:100;
+  background:var(--gold);color:#1A1410;text-decoration:none;
+  font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+  padding:14px 24px;transition:transform .15s}
+.skip:focus{transform:translate(-50%,0)}
 
 /* gold hairline frame */
 .frame{position:fixed;inset:16px;border:1px solid var(--rule-soft);pointer-events:none;z-index:60}
@@ -39,11 +60,13 @@ img{max-width:100%;display:block}
 
 /* nav */
 header{position:relative;z-index:40}
-.nav{display:flex;align-items:center;justify-content:center;gap:34px;padding:34px 0 0;
-  font-family:'Cinzel',Georgia,serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase}
-.nav a{text-decoration:none;color:var(--gold-dim);transition:color .2s}
+.nav{display:flex;align-items:center;justify-content:center;gap:38px;padding:34px 0 0;
+  font-family:'Cinzel',Georgia,serif;font-size:13px;letter-spacing:.26em;text-transform:uppercase}
+.nav a{position:relative;text-decoration:none;color:var(--gold-dim);transition:color .2s}
 .nav a:hover,.nav a:focus-visible{color:var(--gold)}
-@media(max-width:520px){.nav{gap:18px;font-size:9.5px;letter-spacing:.22em}}
+/* the nav text is 13px tall; this grows the tap target to ~44px without moving anything */
+.nav a::after{content:"";position:absolute;left:0;right:0;top:-13px;bottom:-13px}
+@media(max-width:520px){.nav{gap:20px;font-size:11px;letter-spacing:.18em}}
 
 /* ---------- hero ---------- */
 .hero{position:relative;overflow:hidden;text-align:center;padding:54px 0 74px}
@@ -76,6 +99,8 @@ h1{position:relative;font-family:'Cinzel',Georgia,serif;font-weight:400;text-tra
 .btn:hover{background:var(--cream);border-color:var(--cream)}
 .btn-ghost{background:transparent;color:var(--gold);border-color:var(--rule)}
 .btn-ghost:hover{background:transparent;color:var(--cream);border-color:var(--gold)}
+/* <button> defaults to line-height:normal, which made it 5px shorter than an <a class="btn"> */
+button.btn{line-height:1.72}
 
 /* key ornament rule — the second mark from the card */
 .keyrule{display:flex;align-items:center;justify-content:center;gap:20px;margin:0 0 30px}
@@ -89,7 +114,9 @@ h1{position:relative;font-family:'Cinzel',Georgia,serif;font-weight:400;text-tra
 .svcrow span{font-family:'Cinzel',Georgia,serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;
   color:var(--gold-dim);padding:22px 26px;position:relative}
 .svcrow span+span::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:13px;background:var(--rule)}
-@media(max-width:760px){.svcrow{flex-direction:column;text-align:center}.svcrow span+span::before{display:none}
+/* the four labels need 885px to sit on one line; below that they wrapped with an
+   orphaned divider rule leading the second row, so stack them instead */
+@media(max-width:900px){.svcrow{flex-direction:column;text-align:center}.svcrow span+span::before{display:none}
   .svcrow span{padding:14px 0;border-top:1px solid var(--rule-soft)}}
 
 /* section furniture */
@@ -102,7 +129,7 @@ h2{font-family:'Cinzel',Georgia,serif;font-weight:400;text-transform:uppercase;f
 .about p{color:var(--cream-soft);max-width:52ch;margin:0 auto 22px}
 .about p:last-of-type{margin-bottom:0}
 .todo{border:1px dashed var(--rule);padding:30px 28px;margin:34px auto 0;max-width:58ch;
-  font-size:15px;line-height:1.8;color:#8A7E70;letter-spacing:.03em}
+  font-size:15px;line-height:1.8;color:var(--muted);letter-spacing:.03em}
 .todo b{font-family:'Cinzel',Georgia,serif;display:block;font-size:10px;letter-spacing:.3em;
   text-transform:uppercase;color:var(--gold-dim);margin-bottom:10px;font-weight:400}
 
@@ -154,22 +181,38 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
   margin:0 0 10px;color:var(--cream)}
 .ftitles{font-style:italic;font-size:16px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);margin:0 0 26px}
 .finfo{font-size:18px;line-height:2.2;letter-spacing:.06em}
-.finfo a{color:var(--gold);text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+.finfo a{display:inline-block;padding:6px 2px;color:var(--gold);text-decoration:none;
+  border-bottom:1px solid transparent;transition:.2s}
 .finfo a:hover{border-color:var(--gold)}
 
 .sqs{border:1px dashed var(--rule);background:rgba(212,184,122,.04);padding:20px 22px;
   margin:34px auto 0;max-width:600px;text-align:left;font-size:15px;line-height:1.7;
-  color:#8A7E70;letter-spacing:.03em}
+  color:var(--muted);letter-spacing:.03em}
 .sqs b{font-family:'Cinzel',Georgia,serif;display:block;font-size:9.5px;letter-spacing:.28em;
   text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;font-weight:400}
 
 /* the keyhole breathes */
 @keyframes bliss{0%,100%{opacity:.55}50%{opacity:1}}
 .kglow{animation:bliss 6s ease-in-out infinite}
-@media(prefers-reduced-motion:reduce){.kglow{animation:none;opacity:.8}}
+
+/* ---------- keyboard focus ----------
+   last in the sheet so it beats `input:focus{outline:none}` above */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--gold);outline-offset:3px}
+.btn:focus-visible{outline-offset:4px}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .kglow{animation:none;opacity:.8}
+  .skip{transition:none}
+}
+
+/* the fixed hairline frame would print on every sheet */
+@media print{.frame,.glow,.portal-bg,.skip{display:none}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <div class="frame" aria-hidden="true"></div>
 
 <header>
@@ -179,6 +222,8 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
     <a href="#inquiry">Contact</a>
   </nav>
 </header>
+
+<main id="main">
 
 <!-- ==================== HERO ==================== -->
 <section class="hero">
@@ -198,7 +243,9 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
 
     <!-- ARCHWAY + KEYHOLE — the mark from the business card -->
     <div class="portal" aria-hidden="true">
-      <svg viewBox="0 0 118 134" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A lit archway with a keyhole">
+      <!-- purely ornamental: the wrapper is aria-hidden, so no role/aria-label here
+           (a label inside an aria-hidden subtree is never announced) -->
+      <svg viewBox="0 0 118 134" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
         <defs>
           <radialGradient id="pFloor" cx="50%" cy="95%" r="65%">
             <stop offset="0%"   stop-color="#d4b87a" stop-opacity=".26"/>
@@ -283,14 +330,14 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
 </div>
 
 <!-- ==================== ABOUT ====================
-     TODO: replace the .todo block below with Erica's about copy.
+     TODO: replace the .todo block below with the About copy.
      Two or three short paragraphs sit best here; the layout is centred
      and capped at ~52 characters a line.
 ================================================== -->
 <section class="about" id="about">
   <div class="wrap">
     <div class="keyrule" aria-hidden="true">
-      <svg viewBox="0 0 140 44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A skeleton key">
+      <svg viewBox="0 0 140 44" xmlns="http://www.w3.org/2000/svg" focusable="false">
         <g fill="#D4B87A">
           <path fill-rule="evenodd" d="M18 6a14 14 0 1 0 0 28 14 14 0 1 0 0-28zm0 7a7 7 0 1 1 0 14 7 7 0 1 1 0-14z"/>
           <rect x="30" y="17.8" width="92" height="4.6" rx="2.3"/>
@@ -308,8 +355,9 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
 
     <div class="todo">
       <b>Copy pending</b>
-      Erica&rsquo;s about text goes here — the section is built and styled, it just needs
-      the words. Send two or three short paragraphs and they drop straight in.
+      The About copy goes here — the section is built and styled, it just needs the words.
+      Two or three short paragraphs drop in as-is; the column is capped at about 52
+      characters a line.
     </div>
   </div>
 </section>
@@ -317,7 +365,7 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
 <!-- ==================== THE WORKBOOK ==================== -->
 <section class="book">
   <div class="bookgrid">
-    <div class="bookshot"><img data-img="p33L" alt="A page from the Modern Mantras Workbook: I&rsquo;ve survived 100% of my bad days"></div>
+    <div class="bookshot"><img data-img="p33L" width="760" height="1148" alt="A page from the Modern Mantras Workbook: I&rsquo;ve survived 100% of my bad days"></div>
     <div>
       <p class="kicker">In the shop</p>
       <h2>Modern Mantras Workbook</h2>
@@ -341,14 +389,14 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
     <h2>Begin the journey</h2>
     <p class="sub">Share a little about yourself and I&rsquo;ll be in touch.</p>
 
-    <form id="inq" novalidate>
+    <form id="inq">
       <div class="row">
-        <div><label for="n3">Your Name</label><input id="n3" type="text" autocomplete="name"></div>
-        <div><label for="e3">Email Address</label><input id="e3" type="email" autocomplete="email"></div>
+        <div><label for="n3">Your Name</label><input id="n3" name="name" type="text" autocomplete="name" required></div>
+        <div><label for="e3">Email Address</label><input id="e3" name="email" type="email" autocomplete="email" required></div>
       </div>
       <div>
         <label for="s3">What brings you here?</label>
-        <select id="s3">
+        <select id="s3" name="interest">
           <option>Life Satisfaction Coaching</option>
           <option>Intimacy Coaching</option>
           <option>Hypnotherapy</option>
@@ -356,7 +404,7 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
           <option>Something else</option>
         </select>
       </div>
-      <div><label for="m3">Tell me more</label><textarea id="m3"></textarea></div>
+      <div><label for="m3">Tell me more</label><textarea id="m3" name="message"></textarea></div>
       <div class="sendrow"><button class="btn" type="submit">Send Inquiry</button></div>
     </form>
 
@@ -367,12 +415,14 @@ footer{border-top:1px solid var(--rule-soft);background:var(--deep);padding:58px
       the block handles delivery, storage and spam.
     </div>
 
-    <div class="confirm" id="ok3">
+    <div class="confirm" id="ok3" role="status" tabindex="-1">
       <h3>Message Received</h3>
       <p>Thank you for reaching out. I&rsquo;ll be in touch soon to begin our conversation.</p>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -393,8 +443,12 @@ document.querySelectorAll('[data-img]').forEach(function(el){el.src=IMG[el.datas
    / an email endpoint before launch. */
 document.getElementById('inq').addEventListener('submit',function(e){
   e.preventDefault();
+  var ok=document.getElementById('ok3');
   this.style.display='none';
-  document.getElementById('ok3').classList.add('on');
+  ok.classList.add('on');
+  /* the submit button just vanished — put focus on the confirmation so keyboard
+     users are not dumped back at the top, and so role="status" announces it */
+  ok.focus();
 });
 </script>
 </body>

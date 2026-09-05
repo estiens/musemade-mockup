@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
 """Assemble the self-contained pages from src/ templates + src/assets.
 
-Each template has two tokens:
-    /*FONTS*/   the @font-face block (Cinzel + Cormorant Garamond, base64 woff2)
-    /*IMG*/     a `const IMG = {...}` line of base64 data URIs
+Each template carries tokens the build replaces:
+    /*FONTS*/    the @font-face block (Cinzel + Cormorant Garamond, base64 woff2)
+    /*IMG*/      a `const IMG = {...}` line of base64 data URIs
+    /*TOKENS*/   a `const TOKENS = {...}` line of the palettes, read out of the
+                 :root blocks of the real page templates (styleguide.tpl only)
+
+The styleguide reads its swatches from TOKENS rather than hard-coding them, so a
+color can never be right on the site and stale on the page that documents it.
 
 Run:  python3 build.py
 """
-import base64, json, pathlib
+import base64, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).parent
 ASSETS = ROOT / "src" / "assets"
 
 # which images each page needs: {template: {js key: asset file}}
 PAGES = {
-    "index":    {"p33L": "hero.webp"},
-    "workbook": {"hero": "hero.webp", "sheet": "sheet.webp",
-                 "mosaic": "mosaic.webp", "cut": "cut.webp"},
+    "index":      {"p33L": "hero.webp"},
+    "workbook":   {"hero": "hero.webp", "sheet": "sheet.webp",
+                   "mosaic": "mosaic.webp", "cut": "cut.webp"},
+    "styleguide": {},
 }
+
+# which template's palette each styleguide theme documents
+THEMES = {"dark": "index", "light": "workbook"}
 
 MIME = {".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg"}
 
@@ -28,14 +37,32 @@ def data_uri(name):
     return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode()
 
 
+def palette(page):
+    """The custom properties declared in a template's :root block."""
+    css = (ROOT / "src" / f"{page}.tpl").read_text()
+    match = re.search(r":root\s*\{(.*?)\}", css, re.S)
+    assert match, f"{page}: no :root block to read the palette from"
+    body = re.sub(r"/\*.*?\*/", "", match.group(1), flags=re.S)   # drop inline comments
+    return dict(re.findall(r"--([\w-]+)\s*:\s*([^;]+);", body))
+
+
 def build(page, images):
     template = (ROOT / "src" / f"{page}.tpl").read_text()
     fonts = (ASSETS / "fonts.css").read_text().strip()
     uris = {key: data_uri(file) for key, file in images.items()}
-    js = "const IMG=" + json.dumps(uris, separators=(",", ":")) + ";"
 
-    html = template.replace("/*FONTS*/", fonts).replace("/*IMG*/", js)
-    assert "/*FONTS*/" not in html and "/*IMG*/" not in html, f"{page}: token left unreplaced"
+    html = (template
+            .replace("/*FONTS*/", fonts)
+            .replace("/*IMG*/", "const IMG=" + json.dumps(uris, separators=(",", ":")) + ";"))
+
+    if "/*TOKENS*/" in html:
+        tokens = {theme: {k: v.strip() for k, v in palette(src).items()}
+                  for theme, src in THEMES.items()}
+        html = html.replace("/*TOKENS*/",
+                            "const TOKENS=" + json.dumps(tokens, separators=(",", ":")) + ";")
+
+    left = [t for t in ("/*FONTS*/", "/*IMG*/", "/*TOKENS*/") if t in html]
+    assert not left, f"{page}: token left unreplaced: {', '.join(left)}"
 
     out = ROOT / f"{page}.html"
     out.write_text(html)
